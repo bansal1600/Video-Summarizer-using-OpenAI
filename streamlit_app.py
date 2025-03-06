@@ -1,25 +1,19 @@
 import streamlit as st
 import google.generativeai as genai
 from youtube_transcript_api import YouTubeTranscriptApi
-from dotenv import load_dotenv
-import os
 
-# Load environment variables from .env file
-load_dotenv()
+# Streamlit app layout
+st.title("YouTube Video Summarizer")
 
-print(os.getenv("GOOGLE_API_KEY"))  # Should print the key
-
-# Get API key from environment variables
-api_key = os.getenv("GOOGLE_API_KEY")
-
-# # Debug: Print to check if API key is loaded
-if not api_key:     
-    st.error("API key not found. Please check your .env file.")
-    raise ValueError("API key not found. Make sure your .env file is set correctly.")
-else:
-    st.success("API key loaded successfully.")  # This should appear in Streamlit
+# Input text box for API key
+api_key = st.text_input("Enter your Google Gemini API Key:", type="password")
 
 genai.configure(api_key=api_key)
+if api_key:
+    try:
+        st.success("API key loaded successfully.")  # This should appear in Streamlit
+    except Exception as e:
+        st.error(f"Invalid api key")
 
 ## getting the transcript data from yt videos
 def extract_transcript_details(youtube_video_url):
@@ -43,9 +37,6 @@ def generate_gemini_content(transcript_text,prompt):
     response=model.generate_content(prompt+transcript_text)
     return response.text
 
-# Streamlit app layout
-st.title("YouTube Video Summarizer")
-
 # Input text box for the video link
 video_url = st.text_input("Enter YouTube Video URL:")
 
@@ -53,8 +44,10 @@ video_url = st.text_input("Enter YouTube Video URL:")
 prompt = st.text_input("Enter what you want to chat about the video:")
 
 if st.button("Summarize"):
+    if not api_key:
+        st.error("Please enter a valid API key before summarizing.")
     # Get transcript and summarize it
-    if video_url:
+    elif video_url:
         with st.spinner('Fetching and summarizing...'):
             transcript = extract_transcript_details(video_url)
             if "Error" not in transcript:
