@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+openai
+httpx
+youtube-transcript-api
+streamlit
+requests
+dotenv
