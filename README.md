@@ -24,6 +24,8 @@ Built with:
 
 ## 🧱 Project Structure
 
+<img width="654" alt="image" src="https://github.com/user-attachments/assets/1ca63c34-bb92-47a6-bee5-341bf01fec85" />
+
 ```
 yt-edu-assistant/
 ├── agent-a/
