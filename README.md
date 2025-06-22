@@ -1,4 +1,4 @@
-# 🎓 YouTube Educational Assistant (Multi-Agent + AG-UI)
+# 🎓 YouTube Educational Assistant (MCP + A2A + AG-UI)
 
 This project is a multi-agent GenAI-powered application that summarizes educational YouTube videos, generates FAQs and jargon explanations, and enriches learning using external article search — all wrapped in an interactive UI using the AG-UI protocol.
 
