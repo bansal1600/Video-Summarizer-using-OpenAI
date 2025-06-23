@@ -19,13 +19,13 @@ pipeline {
             docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
 
               def agentA = docker.build("${DOCKER_USER}/video_summarizer_using_gemini-agent-a", "agent-a")
-              agentA.push("${IMAGE_TAG}")
+              agentA.push("${summarizer_open_ai}")
 
               def agentB = docker.build("${DOCKER_USER}/video_summarizer_using_gemini-agent-b", "agent-b")
-              agentB.push("${IMAGE_TAG}")
+              agentB.push("${explainer_open_ai}")
 
               def ui = docker.build("${DOCKER_USER}/video_summarizer_using_gemini-ui", "ui")
-              ui.push("${IMAGE_TAG}")
+              ui.push("${ag_ui_streamlit}")
             }
           }
         }
