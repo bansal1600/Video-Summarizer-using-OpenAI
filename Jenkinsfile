@@ -9,12 +9,12 @@ pipeline {
     skipDefaultCheckout(true)
   }
 
-  stages {
-    stage('Checkout Code') {
-      steps {
-        git credentialsId: 'github-creds', url: 'https://github.com/bansal1600/Video-Summarizer-using-OpenAI.git', branch: 'main'
-      }
-    }
+  // stages {
+  //   stage('Checkout Code') {
+  //     steps {
+  //       git credentialsId: 'github-creds', url: 'https://github.com/bansal1600/Video-Summarizer-using-OpenAI.git', branch: 'main'
+  //     }
+  //   }
 
     stage('Build and Push Docker Images') {
       steps {
