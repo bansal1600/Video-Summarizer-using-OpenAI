@@ -6,6 +6,11 @@ pipeline {
   }
 
   stages {
+        stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
         stage('Checkout Code') {
             steps {
                 git credentialsId: 'github-creds', url: 'https://github.com/bansal1600/Video-Summarizer-using-OpenAI.git', branch: 'main'
