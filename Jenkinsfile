@@ -32,10 +32,14 @@ pipeline {
       }
     }
 
-    stage('Deploy via Ansible (Optional)') {
+   stage('Deploy to Kubernetes') {
       steps {
-        script {
-          sh 'ansible-playbook ci-cd/deploy.yml'
+        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+          sh '''
+            kubectl apply -f k8s/agent-a-deployment.yaml
+            kubectl apply -f k8s/agent-b-deployment.yaml
+            kubectl apply -f k8s/ui-deployment.yaml
+          '''
         }
       }
     }

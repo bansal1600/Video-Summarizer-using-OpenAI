@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent-b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agent-b
+  template:
+    metadata:
+      labels:
+        app: agent-b
+    spec:
+      containers:
+      - name: agent-b
+        image: legacycoder777/video_summarizer_using_gemini-agent-b:latest
+        ports:
+        - containerPort: 8001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agent-b-service
+spec:
+  selector:
+    app: agent-b
+  ports:
+    - protocol: TCP
+      port: 8001
+      targetPort: 8001
