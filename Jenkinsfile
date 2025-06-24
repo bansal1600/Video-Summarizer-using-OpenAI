@@ -1,4 +1,4 @@
-pipeline {More actions
+pipeline {
   agent any
 
   environment {
@@ -6,6 +6,11 @@ pipeline {More actions
   }
 
   stages {
+        stage('Checkout Code') {
+            steps {
+                git credentialsId: 'github-creds', url: 'https://github.com/bansal1600/Video-Summarizer-using-OpenAI.git'
+            }
+        }
 
     stage('Build and Push Docker Images') {
       steps {
