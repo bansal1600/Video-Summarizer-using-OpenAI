@@ -6,23 +6,18 @@ pipeline {
   }
 
   stages {
-        stage('Checkout') {
+    stage('Checkout') {
       steps {
-        checkout scm
+        git credentialsId: 'github-creds', url: 'https://github.com/bansal1600/Video-Summarizer-using-OpenAI.git', branch: 'main'
       }
     }
-        stage('Checkout Code') {
-            steps {
-                git credentialsId: 'github-creds', url: 'https://github.com/bansal1600/Video-Summarizer-using-OpenAI.git', branch: 'main'
-            }
-        }
 
     stage('Build and Push Docker Images') {
       steps {
         script {
           withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
             docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-
+              
               def agentA = docker.build("${DOCKER_USER}/video_summarizer_using_gemini-agent-a", "agent-a")
               agentA.push("${IMAGE_TAG}")
 
